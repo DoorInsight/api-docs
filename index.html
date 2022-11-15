@@ -73,9 +73,8 @@
 curl \
 -X POST https://doorinsight.com/api/search-address \
 -H "Authorization: Bearer {token}" \
--F 'house=Stark,Bolton' \
--F 'offset=0' \
--F 'limit=50'
+-H "Content-Type: application/json" \
+-d '{"city": "toronto", "province": "ON", "street": "York St", "postalCode": "M5J", "beds": "2", "baths": "1", "homeType":"condo", "radius": 5}' 
                 </code></pre>
             <p>
                 To retrieve a rent search for an area, you will need to make a POST request to the following url:<br>
@@ -86,65 +85,55 @@ curl \
 Result example :
 
 {
-  query:{
-    offset: 0,
-    limit: 50,
-    house: [
-      "Stark",
-      "Bolton"
-    ],
+average_price: 2881,
+highest_price: 4200,
+lowest_price: 2250,
+median_price: 2700,
+price_per_sqft: 1.86,
+result_count: 74,
+text_address: "York St, Toronto, ON, M5J, CAN"
   }
-  result: [
+  results: [
     {
-      id: 1,
-      first_name: "Jon",
-      last_name: "Snow",
-      alive: true,
-      house: "Stark",
-      gender: "m",
-      age: 14,
-      location: "Winterfell"
+        bathrooms: 2
+        bedrooms: 1
+        city: "Toronto"
+        community: "Waterfront Toronto"
+        date posted: "2022-09-17"
+        date retrieved: "2022-09-18"
+        dist: {calculated: 892.5595731988153, location: {type: "Point", coordinates: [-79.7634909, 43.7359228]}}
+        full address: "14 York St"
+        loc: {type: "Point", coordinates: [-79.7634909, 43.7359228]}
+        location: {lat: 43.7359228, lng: -79.7634909, x: -79.7634909, y: 43.7359228}
+        postal code: "M5J 0B1"
+        posting updated: "2022-09-17T09:17:59.902Z"
+        price: 2600
+        province: "ON"
+        sqft: 700
+        title: "Spacious condo apartment"
+        type: "condo"
     },
     {
-      id: 2,
-      first_name: "Eddard",
-      last_name: "Stark",
-      alive: false,
-      house: "Stark",
-      gender: "m",
-      age: 35,
-      location: 'Winterfell'
+        bathrooms: 2
+        bedrooms: 1
+        city: "Toronto"
+        community: "Waterfront Toronto"
+        date posted: "2022-09-17"
+        date retrieved: "2022-09-18"
+        dist: {calculated: 892.5595731988153, location: {type: "Point", coordinates: [-79.7634909, 43.7359228]}}
+        full address: "10 York St"
+        loc: {type: "Point", coordinates: [-79.7634909, 43.7359228]}
+        location: {lat: 43.7359228, lng: -79.7634909, x: -79.7634909, y: 43.7359228}
+        postal code: "M5J 2L9"
+        posting updated: "2022-09-17T09:17:59.902Z"
+        price: 2650
+        province: "ON"
+        sqft: 700
+        title: "10th floor with parking and locker"
+        type: "condo"
     },
-    {
-      id: 3,
-      first_name: "Catelyn",
-      last_name: "Stark",
-      alive: false,
-      house: "Stark",
-      gender: "f",
-      age: 33,
-      location: "Winterfell"
-    },
-    {
-      id: 4,
-      first_name: "Roose",
-      last_name: "Bolton",
-      alive: false,
-      house: "Bolton",
-      gender: "m",
-      age: 40,
-      location: "Dreadfort"
-    },
-    {
-      id: 5,
-      first_name: "Ramsay",
-      last_name: "Snow",
-      alive: false,
-      house: "Bolton",
-      gender: "m",
-      age: 15,
-      location: "Dreadfort"
-    },
+    
+    ...
   ]
 }
                 </code></pre>
@@ -165,9 +154,22 @@ Result example :
                     <td>Name of city "Toronto" or "toronto"</td>
                 </tr>
                 <tr>
+                    <td>province</td>
+                    <td>String</td>
+                    <td>2 letter code<br/>
+                        Possible Options: ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
+                    </td>
+                </tr>
+                    
+                <tr>
                     <td>street</td>
                     <td>String</td>
                     <td>Street name with or without specific identifier: "10 York St" or "York St"</td>
+                </tr>
+                <tr>
+                    <td>postalCode</td>
+                    <td>String</td>
+                    <td>Complete or partial postal code: "M9V 3N4" or "M9V"</td>
                 </tr>
                 <tr>
                     <td>beds</td>
