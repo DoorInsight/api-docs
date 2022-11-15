@@ -1,14 +1,8 @@
-<!--
- API Documentation HTML Template  - 1.0.1
- Copyright © 2016 Florian Nicolas
- Licensed under the MIT license.
- https://github.com/ticlekiwi/API-Documentation-HTML-Template
- !-->
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>API - Documentation</title>
+    <title>Door Insight API - Documentation</title>
     <meta name="description" content="">
     <meta name="author" content="ticlekiwi">
 
@@ -29,7 +23,7 @@
 <div class="left-menu">
     <div class="content-logo">
         <div class="logo">
-            <img alt="platform by Emily van den Heever from the Noun Project" title="platform by Emily van den Heever from the Noun Project" src="images/logo.png" height="32" />
+            <img alt="Door Insight Logo" title="Door Insight" src="https://doorinsight.com/img/di-1.png" height="32" />
             <span>API Documentation</span>
         </div>
         <button class="burger-menu-icon" id="button-menu-mobile">
@@ -39,15 +33,15 @@
     <div class="mobile-menu-closer"></div>
     <div class="content-menu">
         <div class="content-infos">
-            <div class="info"><b>Version:</b> 1.0.5</div>
-            <div class="info"><b>Last Updated:</b> 15th Sep, 2021</div>
+            <div class="info"><b>Version:</b> 1.0.0</div>
+            <div class="info"><b>Last Updated:</b> 14th Nov, 2022</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
-                <a>GET STARTED</a>
+                <a>Getting Started</a>
             </li>
             <li class="scroll-to-link" data-target="content-get-characters">
-                <a>Get Characters</a>
+                <a>Rent Search</a>
             </li>
             <li class="scroll-to-link" data-target="content-errors">
                 <a>Errors</a>
@@ -59,21 +53,21 @@
     <div class="content-code"></div>
     <div class="content">
         <div class="overflow-hidden content-section" id="content-get-started">
-            <h1>Get started</h1>
+            <h1>Getting Started</h1>
             <pre>
     API Endpoint
 
-        https://api.westeros.com/
+        https://doorinsight.com/api/
                 </pre>
             <p>
-                The Westeros API provides programmatic access to read Game of Thrones data. Retrieve a character, provide an oauth connexion, retrieve a familly, filter them, etc.
+                The Door Insight API provides access to rental rates and comparable listings for addresses across Canada. 
             </p>
             <p>
-                To use this API, you need an <strong>API key</strong>. Please contact us at <a href="mailto:jon.snow@nightswatch.wes">jon.snow@nightswatch.wes</a> to get your own API key.
+                To use this API, you need an <strong>API key</strong>. Please contact us at <a href="mailto:info@doorinsight.com">info@doorinsight.com</a> to get your own API key.
             </p>
         </div>
         <div class="overflow-hidden content-section" id="content-get-characters">
-            <h2>get characters</h2>
+            <h2>Rent Search</h2>
             <pre><code class="bash">
 # Here is a curl example
 curl \
@@ -84,8 +78,8 @@ curl \
 -F 'limit=50'
                 </code></pre>
             <p>
-                To get characters you need to make a POST call to the following url :<br>
-                <code class="higlighted break-word">http://api.westeros.com/character/get</code>
+                To retrieve a rent search for an area, you will need to make a post request to the following url:<br>
+                <code class="higlighted break-word">http://doorinsight.com/api/search-address</code>
             </p>
             <br>
             <pre><code class="json">
@@ -155,6 +149,7 @@ Result example :
 }
                 </code></pre>
             <h4>QUERY PARAMETERS</h4>
+         <p>Add the following parameters to your post request.</p>
             <table class="central-overflow-x">
                 <thead>
                 <tr>
