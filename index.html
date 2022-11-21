@@ -221,76 +221,34 @@ text_address: "York St, Toronto, ON, M5J, CAN"
             <pre><code class="bash">
 # Here is a curl example
 curl \
--X POST https://doorinsight.com/api/search-address \
+-X POST https://doorinsight.com/api/search-city \
 -H "Authorization: Bearer {token}" \
 -H "Content-Type: application/json" \
--d '{"city": "toronto", "province": "ON", "street": "York St", "postalCode": "M5J", "beds": "2", "baths": "1", "homeType":"condo", "radius": 5}' 
+-d '{"city": "toronto", "province": "ON", "beds": "3", "baths": "2", "homeType":"house"}' 
                 </code></pre>
             <p>
-                Rent by city will return median, average, lowest, highest rent along with comparables for the area. This search looks back to 3 months of data to draw estimations.
+                Rent by city will return median, average, lowest, highest rent on the city level. This search looks back to 1 months of data to draw estimations.
+                If a sample size greater than 15 is not found, 3 months time span will be used to estimate. 
             </p>
             <p>
-                Adjusting parameters such as home type, beds, baths and radius will further specify the results. 
+                Adjusting parameters such as home type, beds, baths will further specify the results but may also limit sample size, especially in smaller cities. 
             </p>
             <p>
-                To retrieve a rent search for an address, you will need to make a POST request to the following url:<br>
-                <code class="higlighted break-word">http://doorinsight.com/api/search-address</code>
+                To retrieve a rent search for city, you will need to make a POST request to the following url:<br>
+                <code class="higlighted break-word">http://doorinsight.com/api/search-city</code>
             </p>
             <br>
             <pre><code class="json">
 Result example :
 
 {
-average_price: 2881,
-highest_price: 4200,
-lowest_price: 2250,
-median_price: 2700,
-price_per_sqft: 1.86,
-result_count: 74,
-text_address: "York St, Toronto, ON, M5J, CAN"
-  }
-  results: [
-    {
-        bathrooms: 2
-        bedrooms: 1
-        city: "Toronto"
-        community: "Waterfront Toronto"
-        date posted: "2022-09-17"
-        date retrieved: "2022-09-18"
-        dist: {calculated: 892.5595731988153, location: {type: "Point", coordinates: [-79.7634909, 43.7359228]}}
-        full address: "14 York St"
-        loc: {type: "Point", coordinates: [-79.7634909, 43.7359228]}
-        location: {lat: 43.7359228, lng: -79.7634909, x: -79.7634909, y: 43.7359228}
-        postal code: "M5J 0B1"
-        posting updated: "2022-09-17T09:17:59.902Z"
-        price: 2600
-        province: "ON"
-        sqft: 700
-        title: "Spacious condo apartment"
-        type: "condo"
-    },
-    {
-        bathrooms: 2
-        bedrooms: 1
-        city: "Toronto"
-        community: "Waterfront Toronto"
-        date posted: "2022-09-17"
-        date retrieved: "2022-09-18"
-        dist: {calculated: 892.5595731988153, location: {type: "Point", coordinates: [-79.7634909, 43.7359228]}}
-        full address: "10 York St"
-        loc: {type: "Point", coordinates: [-79.7634909, 43.7359228]}
-        location: {lat: 43.7359228, lng: -79.7634909, x: -79.7634909, y: 43.7359228}
-        postal code: "M5J 2L9"
-        posting updated: "2022-09-17T09:17:59.902Z"
-        price: 2650
-        province: "ON"
-        sqft: 700
-        title: "10th floor with parking and locker"
-        type: "condo"
-    },
-    
-    ...
-  ]
+"query": {"city":"Toronto","homeType":"house","beds":"3","baths":"2"},
+"sample_size":29,
+"median_price":4199,
+"average_price":4445,
+"lowest_price":3250,
+"highest_price":6995,
+"price_per_sqft":3.07
 }
                 </code></pre>
             <h4>QUERY PARAMETERS [POST]</h4>
@@ -316,17 +274,6 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                         Possible Options: ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
                     </td>
                 </tr>
-                    
-                <tr>
-                    <td>street</td>
-                    <td>String</td>
-                    <td>Street name with or without specific identifier: "10 York St" or "York St"</td>
-                </tr>
-                <tr>
-                    <td>postalCode</td>
-                    <td>String</td>
-                    <td>Complete or partial postal code: "M9V 3N4" or "M9V"</td>
-                </tr>
                 <tr>
                     <td>beds</td>
                     <td>String</td>
@@ -350,11 +297,6 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                         Possible Options: ["any", "house", "basement", "apartment", "condo", "townhouse"]
                         Passing "any" will use all home types in results and calculations.
                     </td>
-                </tr>
-                <tr>
-                    <td>radius</td>
-                    <td>Integer</td>
-                    <td>Radius in KM - Any integer between 1 and 10 is accepted.</td>
                 </tr>
                 
                 </tbody>
