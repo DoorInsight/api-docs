@@ -85,7 +85,7 @@ curl \
             </p>
             <p>
                 To retrieve a rent search for an address, you will need to make a POST request to the following url:<br>
-                <code class="higlighted break-word">http://doorinsight.com/api/search-address</code>
+                <code class="higlighted break-word">https://doorinsight.com/api/search-address</code>
             </p>
             <br>
             <pre><code class="json">
@@ -151,6 +151,7 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                 <tr>
                     <th>Field</th>
                     <th>Type</th>
+                    <th>Required</th>
                     <th>Description</th>
                 </tr>
                 </thead>
@@ -163,6 +164,7 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                 <tr>
                     <td>province</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>2 letter code<br/>
                         Possible Options: ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
                     </td>
@@ -171,16 +173,19 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                 <tr>
                     <td>street</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>Street name with or without specific identifier: "10 York St" or "York St"</td>
                 </tr>
                 <tr>
                     <td>postalCode</td>
                     <td>String</td>
+                    <td>Optional</td>
                     <td>Complete or partial postal code: "M9V 3N4" or "M9V"</td>
                 </tr>
                 <tr>
                     <td>beds</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>
                         Possible Options: ["0", "1", "2", "3", "4", "5"] <br/>
                         Passing "0" refers to Studio units
@@ -189,6 +194,7 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                 <tr>
                     <td>baths</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>
                         Possible Options: ["0", "1", "1.5", "2", "2.5", "3", "3.5", "4", "5"] <br/>
                         Passing "0" is equivalent to "Any" and any type of bath will be included in the results and calculations.
@@ -197,6 +203,7 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                 <tr>
                     <td>homeType</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>
                         Possible Options: ["any", "house", "basement", "apartment", "condo", "townhouse"]
                         Passing "any" will use all home types in results and calculations.
@@ -205,6 +212,7 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                 <tr>
                     <td>radius</td>
                     <td>Integer</td>
+                    <td>Required</td>
                     <td>Radius in KM - Any integer between 1 and 10 is accepted.</td>
                 </tr>
                 
@@ -233,7 +241,7 @@ curl \
             </p>
             <p>
                 To retrieve a rent search for city, you will need to make a POST request to the following url:<br>
-                <code class="higlighted break-word">http://doorinsight.com/api/search-city</code>
+                <code class="higlighted break-word">https://doorinsight.com/api/search-city</code>
             </p>
             <br>
             <pre><code class="json">
@@ -256,6 +264,7 @@ Result example :
                 <tr>
                     <th>Field</th>
                     <th>Type</th>
+                    <td>Required</td>
                     <th>Description</th>
                 </tr>
                 </thead>
@@ -263,11 +272,13 @@ Result example :
                 <tr>
                     <td>city</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>Name of city "Toronto" or "toronto"</td>
                 </tr>
                 <tr>
                     <td>province</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>2 letter code<br/>
                         Possible Options: ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
                     </td>
@@ -275,6 +286,7 @@ Result example :
                 <tr>
                     <td>beds</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>
                         Possible Options: ["0", "1", "2", "3", "4", "5"] <br/>
                         Passing "0" refers to Studio units
@@ -283,6 +295,7 @@ Result example :
                 <tr>
                     <td>baths</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>
                         Possible Options: ["0", "1", "1.5", "2", "2.5", "3", "3.5", "4", "5"] <br/>
                         Passing "0" is equivalent to "Any" and any type of bath will be included in the results and calculations.
@@ -291,6 +304,7 @@ Result example :
                 <tr>
                     <td>homeType</td>
                     <td>String</td>
+                    <td>Required</td>
                     <td>
                         Possible Options: ["any", "house", "basement", "apartment", "condo", "townhouse"]
                         Passing "any" will use all home types in results and calculations.
