@@ -46,6 +46,9 @@
             <li class="scroll-to-link" data-target="content-city-rent">
                 <a>Rent By City</a>
             </li>
+            <li class="scroll-to-link" data-target="content-city-rent">
+                <a>Address Details</a>
+            </li>
             <li class="scroll-to-link" data-target="content-errors">
                 <a>Errors</a>
             </li>
@@ -308,6 +311,69 @@ Result example :
             </table>
         </div>                         
         <!--End Rent by City-->
+        
+        
+        
+        <!--Address Details-->
+        <div class="overflow-hidden content-section" id="content-address-detail">
+            <h2>Address Details</h2>
+            <pre><code class="bash">
+# Here is a curl example
+curl \
+-X POST https://doorinsight.com/api/address-details \
+-H "Authorization: Bearer {token}" \
+-H "Content-Type: application/json" \
+-d '{"address": "9 King St, Toronto"' 
+                </code></pre>
+            <p>
+                Address Details will return meta data about a rental address
+            </p>
+
+            <p>
+                To retrieve a rent search for city, you will need to make a POST request to the following url:<br>
+                <code class="higlighted break-word">https://doorinsight.com/api/address-details/code>
+            </p>
+            <br>
+            <pre><code class="json">
+Result example :
+
+{
+    "original_query": "9 King St, Toronto",
+    "address": "9 King Street, Toronto",
+    "city": "Toronto",
+    "province": "Ontario",
+    "beds": 3,
+    "baths": 2,
+    "type": "actual"
+}
+                </code></pre>
+            <h4>QUERY PARAMETERS [POST]</h4>
+         <p>Add the following required parameters to your post request.</p>
+            <table class="central-overflow-x">
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <td>Required</td>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>address</td>
+                    <td>String</td>
+                    <td>Required</td>
+                    <td>Address and city in the format: "9 King St, Toronto"</td>
+                </tr>
+                
+                
+                
+                </tbody>
+            </table>
+        </div>                         
+        <!--End Address Detail-->
+        
+        
         
         
         <!--Errors-->
