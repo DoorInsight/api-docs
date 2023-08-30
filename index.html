@@ -44,7 +44,10 @@
                 <a>Rent By Address</a>
             </li>
             <li class="scroll-to-link" data-target="content-city-rent">
-                <a>Rent By City</a>
+                <a>Rent Stats By City</a>
+            </li>
+            <li class="scroll-to-link" data-target="content-address-area">
+                <a>Rent Stats By Address Area</a>
             </li>
             <li class="scroll-to-link" data-target="content-address-details">
                 <a>Address Details</a>
@@ -219,7 +222,7 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                                      
         <!--Rent By City-->
         <div class="overflow-hidden content-section" id="content-city-rent">
-            <h2>Rent By City</h2>
+            <h2>Rent Stats By City</h2>
             <pre><code class="bash">
 # Here is a curl example
 curl \
@@ -236,7 +239,7 @@ curl \
                 Adjusting parameters such as home type, beds, baths will further specify the results but may also limit sample size, especially in smaller cities. 
             </p>
             <p>
-                To retrieve a rent search for city, you will need to make a POST request to the following url:<br>
+                To retrieve a rent search for a city, you will need to make a POST request to the following url:<br>
                 <code class="higlighted break-word">https://doorinsight.com/api/search-city</code>
             </p>
             <br>
@@ -310,8 +313,82 @@ Result example :
                 </tbody>
             </table>
         </div>                         
-        <!--End Rent by City-->
+        <!--End Rent Stats by City-->
         
+
+
+                <!--Rent Stats By Address Area-->
+        <div class="overflow-hidden content-section" id="content-address-area">
+            <h2>Rent Stats By Address Area</h2>
+            <pre><code class="bash">
+# Here is a curl example
+curl \
+-X POST https://doorinsight.com/api/search-city \
+-H "Authorization: Bearer {token}" \
+-H "Content-Type: application/json" \
+-d '{"city": "toronto", "province": "ON", "street": "3 Garfield Cres"}' 
+                </code></pre>
+            <p>
+                Rent by address area will return rent stats in an area 5KM depending on the area. This search looks back to 6 months of data to draw estimations.
+                If a sample size greater than 15 is not found, a greater radius or timespan is used. 
+            </p>
+            
+            <br>
+            <pre><code class="json">
+Result example :
+
+{
+"query": {"city":"Toronto","homeType":"house","beds":"3","baths":"2"},
+"sample_size":29,
+"median_price":4199,
+"average_price":4445,
+"lowest_price":3250,
+"highest_price":6995,
+"price_per_sqft":3.07
+}
+                </code></pre>
+            <h4>QUERY PARAMETERS [POST]</h4>
+         <p>Add the following required parameters to your post request.</p>
+            <table class="central-overflow-x">
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <td>Required</td>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>street</td>
+                    <td>String</td>
+                    <td>Required</td>
+                    <td>Ex: 3 Garfield Cres</td>
+                </tr>
+                <tr>
+                    <td>city</td>
+                    <td>String</td>
+                    <td>Required</td>
+                    <td>Name of city "Toronto" or "toronto"</td>
+                </tr>
+                <tr>
+                    <td>province</td>
+                    <td>String</td>
+                    <td>Required</td>
+                    <td>2 letter code<br/>
+                        Possible Options: ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']
+                    </td>
+                </tr>
+               
+            
+                
+                </tbody>
+            </table>
+        </div>                         
+        <!--End Rent Stats by Address Area-->
+
+
+
         
         
         <!--Address Details-->
@@ -330,8 +407,8 @@ curl \
             </p>
 
             <p>
-                To retrieve a rent search for city, you will need to make a POST request to the following url:<br>
-                <code class="higlighted break-word">https://doorinsight.com/api/address-details/code>
+                You will need to make a POST request to the following url:<br>
+                <code class="higlighted break-word">https://doorinsight.com/api/address-details/</code>
             </p>
             <br>
             <pre><code class="json">
