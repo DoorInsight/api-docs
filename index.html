@@ -337,15 +337,37 @@ curl \
             <pre><code class="json">
 Result example :
 
-{
-"query": {"city":"Toronto","homeType":"house","beds":"3","baths":"2"},
-"sample_size":29,
-"median_price":4199,
-"average_price":4445,
-"lowest_price":3250,
-"highest_price":6995,
-"price_per_sqft":3.07
-}
+[
+    {
+        "average_rent": 3687,
+        "beds": 3.5
+    },
+    {
+        "average_rent": 8050,
+        "beds": 7
+    },
+    {
+        "average_rent": 4294,
+        "beds": 5
+    },
+    {
+        "average_rent": 3001,
+        "beds": 2.5
+    },
+    {
+        "average_rent": 1695,
+        "beds": 1
+    },
+    {
+        "average_rent": 3599,
+        "beds": 4
+    },
+    {
+        "average_rent": 1499,
+        "beds": 0
+    },
+    ...
+]
                 </code></pre>
             <h4>QUERY PARAMETERS [POST]</h4>
          <p>Add the following required parameters to your post request.</p>
