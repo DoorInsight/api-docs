@@ -34,7 +34,7 @@
     <div class="content-menu">
         <div class="content-infos">
             <div class="info"><b>Version:</b> 1.0.0</div>
-            <div class="info"><b>Last Updated:</b> Feb 5, 2024</div>
+            <div class="info"><b>Last Updated:</b> April 4, 2024</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
@@ -44,13 +44,13 @@
                 <a>Rent By Address</a>
             </li>
             <li class="scroll-to-link" data-target="content-city-rent">
-                <a>Rent Stats By City (Beta)</a>
+                <a>Rent Stats By City (Coming Soon)</a>
             </li>
             <li class="scroll-to-link" data-target="content-address-area">
-                <a>Rent Stats By Address Area (Beta)</a>
+                <a>Rent Stats By Address Area (Coming Soon)</a>
             </li>
             <li class="scroll-to-link" data-target="content-address-details">
-                <a>Address Details (Beta)</a>
+                <a>Address Details (Coming Soon)</a>
             </li>
             <li class="scroll-to-link" data-target="content-errors">
                 <a>Errors</a>
@@ -84,10 +84,13 @@ curl \
 -d '{"city": "toronto", "province": "ON", "street": "York St", "postalCode": "M5J", "beds": "2", "baths": "1", "homeType":"condo", "radius": 5}' 
                 </code></pre>
             <p>
-                Rent By City will return median, average, lowest, highest rent along with comparables for the area. This search looks back to 3 months of data to draw estimations.
+                Rent By Address will return median, average, lowest, highest rent and rent per sqft rent. This search looks back to 3 months of data to draw estimations.
             </p>
             <p>
                 Adjusting parameters such as home type, beds, baths and radius will further specify the results. 
+            </p>
+            <p>
+                Providing a radius value is optional and omitting it will allow the system to automatically select a suitable radius that provides the best results. 
             </p>
             <p>
                 To retrieve a rent search for an address, you will need to make a POST request to the following url:<br>
@@ -98,48 +101,24 @@ curl \
 Result example :
 
 {
-average_price: 2881,
-highest_price: 4200,
-lowest_price: 2250,
-median_price: 2700,
-price_per_sqft: 1.86,
-result_count: 74,
-text_address: "York St, Toronto, ON, M5J, CAN"
-  }
-  results: [
-    {
-        bathrooms: 2
-        bedrooms: 1
-        city: "Toronto"
-        community: "Waterfront Toronto"
-        date retrieved: "2022-09-18"
-        dist: {calculated: 892.5595731988153, location: {type: "Point", coordinates: [-79.7634909, 43.7359228]}}
-        full address: "14 York St"
-        location: {lat: 43.7359228, lng: -79.7634909, x: -79.7634909, y: 43.7359228}
-        postal code: "M5J 0B1"
-        price: 2600
-        province: "ON"
-        sqft: 700
-        type: "condo"
+    "result_count": 17,
+    "estimate": 3000,
+    "average_price": 3094,
+    "lowest_price": 2750,
+    "highest_price": 3650,
+    "price_per_sqft": 2.03,
+    "median_price": 3000,
+    "radius": 5,
+    "text_address": "1 Mint Leaf Blvd, Brampton, ON, L6R 2Y9, CAN",
+    "address_object": {
+        "text": "1 Mint Leaf Blvd, Brampton, ON, L6R 2Y9, CAN",
+        "lat": 43.758472103513,
+        "lon": -79.75151073176
     },
-    {
-        bathrooms: 2
-        bedrooms: 1
-        city: "Toronto"
-        community: "Waterfront Toronto"
-        date retrieved: "2022-09-18"
-        dist: {calculated: 892.5595731988153, location: {type: "Point", coordinates: [-79.7634909, 43.7359228]}}
-        full address: "10 York St"
-        location: {lat: 43.7359228, lng: -79.7634909, x: -79.7634909, y: 43.7359228}
-        postal code: "M5J 2L9"
-        price: 2650
-        province: "ON"
-        sqft: 700
-        type: "condo"
-    },
-    
-    ...
-  ]
+    "home_type": "house",
+    "beds": 3,
+    "baths": 2,
+    "estimate_id": 9
 }
                 </code></pre>
             <h4>QUERY PARAMETERS [POST]</h4>
@@ -176,12 +155,6 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                     <td>Street name with or without specific identifier: "10 York St" or "York St"</td>
                 </tr>
                 <tr>
-                    <td>postalCode</td>
-                    <td>String</td>
-                    <td>Optional</td>
-                    <td>Complete or partial postal code: "M9V 3N4" or "M9V"</td>
-                </tr>
-                <tr>
                     <td>beds</td>
                     <td>String</td>
                     <td>Required</td>
@@ -209,10 +182,16 @@ text_address: "York St, Toronto, ON, M5J, CAN"
                     </td>
                 </tr>
                 <tr>
+                    <td>postalCode</td>
+                    <td>String</td>
+                    <td>Optional</td>
+                    <td>Complete or partial postal code: "M9V 3N4" or "M9V"</td>
+                </tr>
+                <tr>
                     <td>radius</td>
                     <td>Integer</td>
-                    <td>Required</td>
-                    <td>Radius in KM - Any integer between 1 and 10 is accepted.</td>
+                    <td>Optional</td>
+                    <td>Radius in KM - Any integer between 0.1 and 10 is accepted. 0 or omitting radius will use an auto radius calculation.</td>
                 </tr>
                 
                 </tbody>
@@ -329,7 +308,7 @@ curl \
 -d '{"city": "toronto", "province": "ON", "street": "3 Garfield Cres"}' 
                 </code></pre>
             <p>
-                Rent by address area will return rent stats in an area 5KM depending on the area. This search looks back to 6 months of data to draw estimations.
+                Rent by address area will return a breakdown of every bedroom type in a 5KM radius depending on the area. This search looks back to 6 months of data to draw estimations.
                 If a sample size greater than 15 is not found, a greater radius or timespan is used. 
             </p>
             
@@ -479,31 +458,9 @@ Result example :
         <div class="overflow-hidden content-section" id="content-errors">
             <h2>Errors</h2>
             <p>
-                The API uses the following error codes:
+                The API uses descriptive errors to help diagnose issues.  
             </p>
-            <table>
-                <thead>
-                <tr>
-                    <th>Error Code</th>
-                    <th>Meaning</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>X100</td>
-                    <td>
-                        Some parameters are missing. This error appears when you don't pass every mandatory parameters.
-                    </td>
-                </tr>
-                <tr>
-                    <td>X101</td>
-                    <td>
-                        Some parameters are invalid. Check API doc for possible input types.
-                    </td>
-                </tr>
-                
-                </tbody>
-            </table>
+            
         </div>
     </div>
     <div class="content-code"></div>
